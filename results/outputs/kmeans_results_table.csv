@@ -1,0 +1,14 @@
+model,variety,best_k_3plus,cv_sil,sd,cv_sil_common,cv_dbi,cv_ch,min_cluster_share,buy_rate_min,buy_rate_max,key_hyperparameters,test_silhouette,test_davies_bouldin,test_calinski_harabasz,approx_roc_auc,approx_pr_auc,approx_precision,approx_recall,approx_f1,is_final
+K-Means (+PCA),V01 all features,3,0.175,0.005,0.372,1.982,208,0.082,0.002,0.29,"k=3, init=k-means++, n_init=10 | no PCA, std scaler",,,,,,,,,False
+K-Means (+PCA),V02 all features + PCA90,3,0.187,0.005,0.372,1.862,232,0.082,0.004,0.292,"k=3, init=k-means++, n_init=10 | PCA90, std scaler",,,,,,,,,False
+K-Means (+PCA),V03 behaviour RAW (no log),3,0.415,0.009,0.382,1.158,505,0.085,0.005,0.292,"k=3, init=k-means++, n_init=10 | no PCA, std scaler",,,,,,,,,False
+K-Means (+PCA),V04 behaviour LOG,3,0.369,0.007,0.369,1.177,605,0.078,0.004,0.279,"k=3, init=k-means++, n_init=10 | no PCA, std scaler",,,,,,,,,False
+K-Means (+PCA),V05 V04 + capping,3,0.24,0.006,0.21,1.443,674,0.205,0.018,0.272,"k=3, init=k-means++, n_init=10 | no PCA, capping, std scaler",,,,,,,,,False
+K-Means (+PCA),V06 V04 MinMax scaler,6,0.406,0.004,0.268,0.896,1055,0.069,0.003,0.674,"k=6, init=k-means++, n_init=10 | no PCA, minmax scaler",,,,,,,,,False
+K-Means (+PCA),V07 V04 Robust scaler,3,0.479,0.007,0.365,0.965,1204,0.075,0.004,0.258,"k=3, init=k-means++, n_init=10 | no PCA, robust scaler",,,,,,,,,False
+K-Means (+PCA),V08 V04 + PCA90,3,0.383,0.008,0.369,1.115,665,0.079,0.004,0.279,"k=3, init=k-means++, n_init=10 | PCA90, std scaler",,,,,,,,,False
+K-Means (+PCA),V09 behaviour w/o PageValues,3,0.4,0.007,0.37,1.101,674,0.077,0.003,0.265,"k=3, init=k-means++, n_init=10 | no PCA, std scaler",0.409,1.0985,836.9977,0.5999,0.1942,0.2584,0.301,0.2781,True
+K-Means (+PCA),V10 compact 7 features,6,0.389,0.003,0.256,0.925,894,0.074,0.009,0.647,"k=6, init=k-means++, n_init=10 | no PCA, std scaler",,,,,,,,,False
+K-Means (+PCA),V11 V04 + visitor/weekend,3,0.303,0.007,0.367,1.359,444,0.08,0.004,0.279,"k=3, init=k-means++, n_init=10 | no PCA, std scaler",,,,,,,,,False
+K-Means (+PCA),V12 V04 + capping + PCA90,6,0.265,0.019,0.223,1.342,562,0.062,0.015,0.271,"k=6, init=k-means++, n_init=10 | PCA90, capping, std scaler",,,,,,,,,False
+K-Means (+PCA),V13 V09 + PCA90,3,0.417,0.007,0.371,1.032,751,0.078,0.004,0.266,"k=3, init=k-means++, n_init=10 | PCA90, std scaler",,,,,,,,,False
