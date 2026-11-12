@@ -1,0 +1,53 @@
+{
+  "final_variety": "V09 behaviour w/o PageValues",
+  "n_clusters": 3,
+  "hyperparameters": {
+    "n_clusters": 3,
+    "init": "k-means++",
+    "n_init": 10,
+    "algorithm": "lloyd",
+    "max_iter": 300
+  },
+  "training_overall_purchase_rate": 0.1547,
+  "segments": {
+    "1": {
+      "name": "Quick exits",
+      "training_share": 0.0774,
+      "training_purchase_rate": 0.0026,
+      "description": "Visitors who leave after a page or two. Almost none buy. Idea: improve landing pages, loading speed and first-screen offers.",
+      "typical_session": {
+        "Administrative": 0.028,
+        "ProductRelated": 2.333,
+        "ProductRelated_Duration": 21.209,
+        "BounceRates": 0.176,
+        "ExitRates": 0.187
+      }
+    },
+    "0": {
+      "name": "Casual browsers",
+      "training_share": 0.7419,
+      "training_purchase_rate": 0.1436,
+      "description": "The large middle group. Average purchase rate. Idea: recommendations, reminders and clearer calls to action.",
+      "typical_session": {
+        "Administrative": 1.577,
+        "ProductRelated": 21.347,
+        "ProductRelated_Duration": 787.233,
+        "BounceRates": 0.01,
+        "ExitRates": 0.034
+      }
+    },
+    "2": {
+      "name": "Engaged shoppers",
+      "training_share": 0.1808,
+      "training_purchase_rate": 0.2653,
+      "description": "Many product pages and long visits. About twice the average purchase rate. Idea: reduce checkout friction, offer help and cart reminders.",
+      "typical_session": {
+        "Administrative": 6.337,
+        "ProductRelated": 85.393,
+        "ProductRelated_Duration": 3324.135,
+        "BounceRates": 0.006,
+        "ExitRates": 0.02
+      }
+    }
+  }
+}

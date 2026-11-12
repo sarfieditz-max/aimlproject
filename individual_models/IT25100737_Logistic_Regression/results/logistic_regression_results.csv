@@ -1,0 +1,9 @@
+Model,Variety,Key hyperparameters,CV F1,CV PR-AUC,Note,Test precision,Test recall,Test F1,Test ROC-AUC,Test PR-AUC
+Logistic Regression,V1 Default baseline,"C=1, l2, lbfgs, no weighting",0.6213,0.6862,,,,,,
+Logistic Regression,V2 class_weight=balanced,"C=1, l2, lbfgs, class_weight=balanced",0.6564,0.6679,,,,,,
+Logistic Regression,V3 SMOTE-in-CV,"C=1, l2, lbfgs, SMOTE in each fold",0.653,0.6672,,,,,,
+Logistic Regression,V4 Tuned + class_weight,"C=0.01, l1, saga, class_weight=balanced",0.6693,0.6664,,,,,,
+Logistic Regression,V5 Tuned + SMOTE-in-CV,"C=0.01, l1, saga, SMOTE in each fold",0.6698,0.6669,,,,,,
+Logistic Regression,V6 L1 sparse (C=0.01),"C=0.01, l1, liblinear, class_weight=balanced",0.6681,0.6743,,,,,,
+Logistic Regression,V7 Best + tuned threshold,"V5 settings, threshold=0.57",0.6739,0.6669,threshold picked on OOF probs (slightly optimistic),0.6113,0.7618,0.6783,0.9205,0.6783
+Logistic Regression,V8 Pre-SMOTE file (LEAKY),"C=1, l2, lbfgs, trained on X_train_balanced",0.839,0.9048,"Leaky CV, NOT used for selection",,,,,
