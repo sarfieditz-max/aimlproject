@@ -27,7 +27,6 @@ To keep the repository organized for examiners and viewers, **all final delivera
 | :--- | :--- | :--- | :--- | :--- |
 | **IT25101477 - Ahamed MJS** | **Support Vector Machine (SVM)** | Supervised (Kernel Margin) | [`individual_models/IT25101477_SVM/`](./individual_models/IT25101477_SVM/) | `IT25101477-SVM` |
 | **IT25102287 - Eragoda WMSP** | **K-Means Clustering (+PCA)** | Unsupervised (Segmentation) | [`individual_models/IT25102287_KMeans_Clustering/`](./individual_models/IT25102287_KMeans_Clustering/) | `IT25102287_Eragoda-WMSP` |
-| **IT25103253 - Tharuneth MAD** | — | — | — | — |
 | **IT25102733 - Fernando WMMPD** | **Decision Tree** | Supervised (Rule-Based Tree) | [`individual_models/IT25102733_Decision_Tree/`](./individual_models/IT25102733_Decision_Tree/) | `IT25102733-Fernando-WMMPD` |
 | **IT25100737 - Rukshan PKR** | **Logistic Regression** | Supervised (Linear Baseline) | [`individual_models/IT25100737_Logistic_Regression/`](./individual_models/IT25100737_Logistic_Regression/) | `IT25100737-Logistic-Regression` |
 | **IT25100153 - Hayas MLM** | **Random Forest** | Supervised (Ensemble) | [`individual_models/IT25100153_Random_Forest/`](./individual_models/IT25100153_Random_Forest/) | `IT25100153-Random-Forest` |
