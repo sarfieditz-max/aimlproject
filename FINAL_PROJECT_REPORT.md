@@ -7,7 +7,7 @@
 
 ### Academic Information
 - **Course**: IT2011 — Artificial Intelligence and Machine Learning (Year 2 Semester 1)
-- **Dataset**: UCI Online Shoppers Purchasing Intention Dataset (`online_shoppers_intention.csv`, 12,330 sessions, 18 attributes)
+- **Dataset**: [UCI Online Shoppers Purchasing Intention Dataset](https://archive.ics.uci.edu/dataset/468/online+shoppers+purchasing+intention+dataset) (`online_shoppers_intention.csv`, 12,330 sessions, 18 attributes)
 - **Target Variable**: `Revenue` (Binary: `False` = No Purchase [84.53%], `True` = Purchase [15.47%])
 - **Group Team Members & Models Implemented**:
   1. **IT25101477 - Ahamed MJS**: Support Vector Machine (SVM) — Supervised Non-Linear RBF Margin Classifier

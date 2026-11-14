@@ -1,7 +1,7 @@
 # Online Shopping Purchase Intention Prediction Using Machine Learning
 
 > **Module**: IT2011 — Artificial Intelligence and Machine Learning (Year 2 Semester 1 Group Assignment @SLIIT)  
-> **Dataset**: UCI Online Shoppers Purchasing Intention Dataset (`online_shoppers_intention.csv`, 12,330 rows, 18 columns)  
+> **Dataset**: [UCI Online Shoppers Purchasing Intention Dataset](https://archive.ics.uci.edu/dataset/468/online+shoppers+purchasing+intention+dataset) (`online_shoppers_intention.csv`, 12,330 rows, 18 columns)  
 > **Target Variable**: `Revenue` (`False` = 10,422 sessions / 84.53%, `True` = 1,908 sessions / 15.47%)
 
 ---
@@ -77,6 +77,7 @@ Online-Shopping-Purchase-Intention-Prediction/
 ---
 
 ## 📊 Dataset & Exploratory Data Analysis (EDA)
+- **Official Source**: [UCI Machine Learning Repository — Online Shoppers Purchasing Intention Dataset (ID #468)](https://archive.ics.uci.edu/dataset/468/online+shoppers+purchasing+intention+dataset) ([Direct CSV](./online_shoppers_intention.csv))
 - **Total Records**: 12,330 browsing sessions (0 missing values across all 18 attributes).
 - **Features**: 14 numerical behavioural/telemetry attributes, 2 categorical attributes (`Month`, `VisitorType`), and 1 boolean attribute (`Weekend`).
 - **Target**: `Revenue` (`False`: 10,422 / 84.53%; `True`: 1,908 / 15.47%).
