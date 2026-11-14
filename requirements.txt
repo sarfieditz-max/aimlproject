@@ -1,0 +1,25 @@
+# Core Data Science & Machine Learning
+numpy>=2.0.0
+pandas>=2.2.0
+scipy>=1.13.0
+scikit-learn>=1.6.1
+imbalanced-learn>=0.12.0
+joblib>=1.4.0
+
+# Visualization & Notebooks
+matplotlib>=3.9.0
+seaborn>=0.13.2
+pillow>=10.0.0
+
+# FastAPI Backend & REST API
+fastapi>=0.115.0
+uvicorn>=0.30.0
+pydantic>=2.9.0
+python-dotenv>=1.0.0
+httpx>=0.27.0
+
+# Interactive K-Means Web App
+streamlit>=1.38.0
+
+# Testing
+pytest>=8.0.0
