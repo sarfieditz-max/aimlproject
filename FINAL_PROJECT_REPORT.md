@@ -9,12 +9,13 @@
 - **Course**: IT2011 — Artificial Intelligence and Machine Learning (Year 2 Semester 1)
 - **Dataset**: UCI Online Shoppers Purchasing Intention Dataset (`online_shoppers_intention.csv`, 12,330 sessions, 18 attributes)
 - **Target Variable**: `Revenue` (Binary: `False` = No Purchase [84.53%], `True` = Purchase [15.47%])
-- **Group Models Implemented**:
-  1. **Logistic Regression (`IT25100737`)** — Supervised Linear Baseline Classifier
-  2. **Random Forest (`IT25100153`)** — Supervised Bagging Ensemble Classifier
-  3. **Support Vector Machine (`IT25101477`)** — Supervised Non-Linear RBF Margin Classifier
-  4. **Decision Tree (`IT25102733` — Fernando W M M P D)** — Supervised Rule-Based Tree Classifier
-  5. **K-Means Clustering + PCA (`IT25102287` — Eragoda W M S P)** — Unsupervised Behavioral Segmentation
+- **Group Team Members & Models Implemented**:
+  1. **IT25101477 - Ahamed MJS**: Support Vector Machine (SVM) — Supervised Non-Linear RBF Margin Classifier
+  2. **IT25102287 - Eragoda WMSP**: K-Means Clustering + PCA — Unsupervised Behavioral Segmentation
+  3. **IT25103253 - Tharuneth MAD**: Group Member
+  4. **IT25102733 - Fernando WMMPD**: Decision Tree — Supervised Rule-Based Tree Classifier
+  5. **IT25100737 - Rukshan PKR**: Logistic Regression — Supervised Linear Baseline Classifier
+  6. **IT25100153 - Hayas MLM**: Random Forest — Supervised Bagging Ensemble Classifier
 
 ---
 
