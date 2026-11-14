@@ -162,8 +162,8 @@ To segment visitors *before* checkout or page-value accumulation, **K-Means** wa
 ## 🚀 How to Run the Project
 
 ### 1. Environment Setup
+#### Install core dependencies
 ```bash
-# Install core dependencies
 pip install -r requirements.txt
 ```
 
