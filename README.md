@@ -77,7 +77,7 @@ Online-Shopping-Purchase-Intention-Prediction/
 
 ---
 
-## 📊 Dataset & Preprocessing Protocol
+## 📊 Dataset & Exploratory Data Analysis (EDA)
 - **Total Records**: 12,330 browsing sessions (0 missing values across all 18 attributes).
 - **Features**: 14 numerical behavioural/telemetry attributes, 2 categorical attributes (`Month`, `VisitorType`), and 1 boolean attribute (`Weekend`).
 - **Target**: `Revenue` (`False`: 10,422 / 84.53%; `True`: 1,908 / 15.47%).
@@ -85,6 +85,13 @@ Online-Shopping-Purchase-Intention-Prediction/
   - Partitioned upfront via `train_test_split(..., test_size=0.20, stratify=y, random_state=42)` into **9,864 training sessions (80%)** and **2,466 test sessions (20%)**.
   - All scalers (`StandardScaler`), encoders (`OneHotEncoder`), and resamplers (`SMOTE` / class weighting) are fitted strictly inside `sklearn.pipeline.Pipeline` across **5-Fold Stratified Cross-Validation** on the training split.
   - The 2,466 test sessions are evaluated **only once** for final benchmarking.
+
+### Key EDA Visualizations
+| Target Class Imbalance (84.53% vs 15.47%) | Seasonal Conversion Rates by Month (Nov Peak) |
+| :---: | :---: |
+| ![Revenue Class Distribution](./reports/figures/01_revenue_class_distribution.png) | ![Revenue by Month](./reports/figures/04_revenue_by_month.png) |
+| **`PageValues` Distribution (Dominant Predictor)** | **Pearson Correlation Heatmap (Numerical Features)** |
+| ![PageValues Distribution](./reports/figures/08_pagevalues_distribution.png) | ![Correlation Heatmap](./reports/figures/12_correlation_heatmap.png) |
 
 ---
 
@@ -107,6 +114,28 @@ Online-Shopping-Purchase-Intention-Prediction/
 - **Strong Non-Linear Margin Generalization**: **SVM** achieves **87.47% accuracy** and **0.8997 ROC-AUC**, outperforming deeper unpruned trees on precision (`57.59%`).
 - **Dominant Predictor**: Across all supervised models (Gini importance, Permutation importance, and L1 coefficients), **`PageValues`** is the strongest predictor of purchase intention, followed by seasonal indicator **`Month` (November)**, **`ProductRelated_Duration`**, and **`ExitRates` / `BounceRates`**.
 
+#### Supervised Model Visualizations
+
+##### 🌲 Random Forest
+| ROC & Precision-Recall Curves (Test Set) | Permutation Feature Importance |
+| :---: | :---: |
+| ![Random Forest ROC & PR Curves](./reports/figures/rf_roc_pr_curves.png) | ![Random Forest Permutation Importance](./reports/figures/rf_permutation_importance.png) |
+
+##### 📐 Logistic Regression
+| Confusion Matrix, ROC & PR Curves (Tuned V7) | Final L1 Model Odds Ratios |
+| :---: | :---: |
+| ![Logistic Regression Evaluation Curves](./reports/figures/lr_evaluation_curves.png) | ![Logistic Regression Odds Ratios](./reports/figures/lr_odds_ratios.png) |
+
+##### 🌿 Decision Tree
+| Decision Tree Structure (Top 3 Levels) | Overfitting Analysis Across `max_depth` |
+| :---: | :---: |
+| ![Decision Tree Structure](./reports/figures/dt_tree_structure.png) | ![Decision Tree Max Depth Overfitting](./reports/figures/dt_max_depth_overfitting.png) |
+
+##### 🛡️ Support Vector Machine (SVM) & Backend Benchmark
+| ROC Curves (`AUC = 0.8997`) | Test Set Confusion Matrices |
+| :---: | :---: |
+| ![SVM ROC Curves](./reports/figures/14_roc_curves.png) | ![SVM Confusion Matrices](./reports/figures/13_confusion_matrices.png) |
+
 ---
 
 ### 2. Unsupervised Behavioral Segmentation — K-Means + PCA
@@ -122,6 +151,11 @@ To segment visitors *before* checkout or page-value accumulation, **K-Means** wa
 | **Segment 1** | **Quick Exits** | 7.74% | **0.26%** | Leave after 1–2 pages (`BounceRates ≈ 0.18`, `ExitRates ≈ 0.19`). *Action*: Optimize landing page speed and first-screen value proposition. |
 | **Segment 0** | **Casual Browsers** | 74.19% | **14.36%** | Core traffic (~21 product pages, ~13 min duration). *Action*: Trigger personalized product recommendations and urgency reminders. |
 | **Segment 2** | **Engaged Shoppers** | 18.08% | **26.53%** | Deep exploration (~85 product pages, ~55 min duration, very low bounce). Converts at **nearly 2× the site average**. *Action*: Streamline checkout, offer live chat assistance, and cart recovery incentives. |
+
+#### K-Means Segmentation Visualizations
+| Discovered Shopper Personas & Purchase Rates ($k=3$) | 2D PCA Cluster Projection |
+| :---: | :---: |
+| ![K-Means Segments](./reports/figures/kmeans_step4_segments.png) | ![K-Means PCA Scatter](./reports/figures/kmeans_step5_pca_scatter.png) |
 
 ---
 

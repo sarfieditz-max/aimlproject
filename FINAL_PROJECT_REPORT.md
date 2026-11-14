@@ -80,11 +80,17 @@ Publication-grade figures generated directly from the dataset (`reports/figures/
 5. **Multicollinearity (`12_correlation_heatmap.png`)**:
    Strong positive correlation exists between `BounceRates` and `ExitRates` ($r = 0.91$) and between `ProductRelated` page count and `ProductRelated_Duration` ($r = 0.86$).
 
+| Target Class Imbalance | Monthly Conversion Trends |
+| :---: | :---: |
+| ![Revenue Class Distribution](./reports/figures/01_revenue_class_distribution.png) | ![Revenue by Month](./reports/figures/04_revenue_by_month.png) |
+| **`PageValues` Distribution** | **Numerical Correlation Heatmap** |
+| ![PageValues Distribution](./reports/figures/08_pagevalues_distribution.png) | ![Correlation Heatmap](./reports/figures/12_correlation_heatmap.png) |
+
 ---
 
 ## 5. Individual Model Architectures & Hyperparameter Tuning
 
-### 5.1 Model 1: Logistic Regression (`IT25100737`)
+### 5.1 Model 1: Logistic Regression (`IT25100737 - Rukshan PKR`)
 - **Folder**: `individual_models/IT25100737_Logistic_Regression/`
 - **Methodology**: Evaluated 8 experimental varieties comparing default L2 (`lbfgs`), `class_weight='balanced'`, in-fold `SMOTE`, L1 sparsity (`saga` and `liblinear`), and out-of-fold probability threshold optimization—explicitly demonstrating why pre-split SMOTE (V8) causes data leakage and must be avoided.
 - **Optimal Configuration**:
@@ -93,7 +99,11 @@ Publication-grade figures generated directly from the dataset (`reports/figures/
 - **Held-Out Test Performance (V7)**:
   - $\text{Precision} = 0.6113$, $\text{Recall} = 0.7618$, $\text{F1-Score} = 0.6783$, $\text{ROC-AUC} = 0.9205$, $\text{PR-AUC} = 0.6783$.
 
-### 5.2 Model 2: Random Forest Classifier (`IT25100153`)
+| Logistic Regression Evaluation Curves | L1 Odds Ratios |
+| :---: | :---: |
+| ![LR Evaluation Curves](./reports/figures/lr_evaluation_curves.png) | ![LR Odds Ratios](./reports/figures/lr_odds_ratios.png) |
+
+### 5.2 Model 2: Random Forest Classifier (`IT25100153 - Hayas MLM`)
 - **Folder**: `individual_models/IT25100153_Random_Forest/`
 - **Methodology**: Compared 9 forest configurations across 5-fold stratified CV (baseline unregularized, `balanced` weights, `balanced_subsample`, regularized depth/leaf constraints, `SMOTENC`, random undersampling, and an ablation without `PageValues`), followed by `RandomizedSearchCV` (24 candidates) and `GridSearchCV` (9 candidates).
 - **Optimal Hyperparameters**:
@@ -102,7 +112,11 @@ Publication-grade figures generated directly from the dataset (`reports/figures/
 - **Held-Out Test Performance**:
   - $\text{Accuracy} = 0.8849$, $\text{Precision} = 0.6068$, $\text{Recall} = 0.7513$, $\text{F1-Score} = 0.6713$, $\text{ROC-AUC} = 0.9320$, $\text{PR-AUC} = 0.7398$.
 
-### 5.3 Model 3: Support Vector Machine (`IT25101477`)
+| Random Forest ROC & PR Curves | Random Forest Permutation Importance |
+| :---: | :---: |
+| ![RF ROC PR Curves](./reports/figures/rf_roc_pr_curves.png) | ![RF Permutation Importance](./reports/figures/rf_permutation_importance.png) |
+
+### 5.3 Model 3: Support Vector Machine (`IT25101477 - Ahamed MJS`)
 - **Folder**: `individual_models/IT25101477_SVM/` & `backend/`
 - **Methodology**: Constructed a leak-free `ColumnTransformer` (`StandardScaler` on 14 numeric columns, `OneHotEncoder` on categorical columns) paired with `SVC(kernel='rbf', probability=True, class_weight='balanced')`, tuned via 5-fold `GridSearchCV` over $C \in [0.1, 1.0, 10.0, 100.0]$ and $\gamma \in [\text{'scale'}, 0.01, 0.001]$.
 - **Optimal Hyperparameters**: $C = 100.0$, $\gamma = 0.001$, $\text{kernel} = \text{'rbf'}$.
@@ -111,14 +125,22 @@ Publication-grade figures generated directly from the dataset (`reports/figures/
   - $\text{Accuracy} = 0.8747$, $\text{Precision} = 0.5759$, $\text{Recall} = 0.7251$, $\text{F1-Score} = 0.6419$, $\text{ROC-AUC} = 0.8997$.
   - **Confusion Matrix**: $\text{TN} = 1,880$, $\text{FP} = 204$, $\text{FN} = 105$, $\text{TP} = 277$.
 
-### 5.4 Model 4: Decision Tree Classifier (`IT25102733` — Fernando W M M P D)
+| SVM ROC Curves | Test Set Confusion Matrices |
+| :---: | :---: |
+| ![SVM ROC Curves](./reports/figures/14_roc_curves.png) | ![SVM Confusion Matrices](./reports/figures/13_confusion_matrices.png) |
+
+### 5.4 Model 4: Decision Tree Classifier (`IT25102733 - Fernando WMMPD`)
 - **Folder**: `individual_models/IT25102733_Decision_Tree/`
 - **Methodology**: Investigated tree depth overfitting across $\text{max\_depth} \in [1, 3, 5, 10, \text{None}]$ (showing unrestricted depth-29 trees memorize training data with train accuracy = 1.0 but collapse to 0.741 test ROC-AUC), followed by 180-candidate 5-fold Stratified `GridSearchCV`.
 - **Optimal Hyperparameters**:
   - **Individual Tuned Tree (`IT25102733`)**: `max_depth=3`, `criterion='entropy'`, `class_weight='balanced'` ($\text{Test Accuracy} = 0.8750$, $\text{Precision} = 0.5710$, $\text{Recall} = 0.8120$, $\text{F1} = 0.6700$, $\text{ROC-AUC} = 0.9080$).
   - **Depth-7 Gini Comparison Tree**: `max_depth=7`, `criterion='gini'`, `class_weight='balanced'` ($\text{CV F1} = 0.6344 \pm 0.0069$, $\text{Test Accuracy} = 0.8500$, $\text{Precision} = 0.5098$, $\text{Recall} = 0.8194$, $\text{F1} = 0.6285$, $\text{ROC-AUC} = 0.8928$, $\text{TN} = 1,783, \text{FP} = 301, \text{FN} = 69, \text{TP} = 313$).
 
-### 5.5 Model 5: K-Means Clustering + PCA (`IT25102287` — Eragoda W M S P)
+| Decision Tree Structure (Depth 3) | Max-Depth Overfitting Curve |
+| :---: | :---: |
+| ![Decision Tree Structure](./reports/figures/dt_tree_structure.png) | ![Decision Tree Overfitting](./reports/figures/dt_max_depth_overfitting.png) |
+
+### 5.5 Model 5: K-Means Clustering + PCA (`IT25102287 - Eragoda WMSP`)
 - **Folder**: `individual_models/IT25102287_KMeans_Clustering/` & `deployment/`
 - **Methodology**: Evaluated 13 preprocessing and feature-selection varieties (`V01`–`V13`) across $k \in \{2..8\}$ using 5-fold cross-validated Silhouette, Davies-Bouldin, and Calinski-Harabasz indices. Excluded `PageValues` in **V09** so segments reflect pure browsing behavior before checkout pages are reached.
 - **Optimal Configuration (`V09`)**:
@@ -131,6 +153,10 @@ Publication-grade figures generated directly from the dataset (`reports/figures/
   1. **Segment 1 — Quick Exits (7.74% of traffic, 0.26% purchase rate)**: Bounce immediately (`BounceRates ≈ 0.176`, `ExitRates ≈ 0.187`, ~2 product pages).
   2. **Segment 0 — Casual Browsers (74.19% of traffic, 14.36% purchase rate)**: Typical visitors (~21 product pages, ~787s product duration).
   3. **Segment 2 — Engaged Shoppers (18.08% of traffic, 26.53% purchase rate)**: High-intent visitors (~85 product pages, ~3,324s duration, minimal bounce/exit).
+
+| K-Means Shopper Segments ($k=3$) | 2D PCA Cluster Projection |
+| :---: | :---: |
+| ![K-Means Segments](./reports/figures/kmeans_step4_segments.png) | ![K-Means PCA Scatter](./reports/figures/kmeans_step5_pca_scatter.png) |
 
 ---
 
