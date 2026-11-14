@@ -161,33 +161,130 @@ To segment visitors *before* checkout or page-value accumulation, **K-Means** wa
 
 ## 🚀 How to Run the Project
 
-### 1. Environment Setup
-#### Install core dependencies
+### 1. Prerequisites
+- **Python**: `3.10+` (`3.11`–`3.13` recommended)
+- **Git**: Installed (or download the repository ZIP)
+
+---
+
+### 2. Clone Repository & Set Up Virtual Environment
+
 ```bash
-pip install -r requirements.txt
+# 1. Clone the repository
+git clone https://github.com/SayuruPabasara/Online-Shopping-Purchase-Intention-Prediction.git
+cd Online-Shopping-Purchase-Intention-Prediction
+
+# 2. Create a Python virtual environment
+python -m venv .venv
 ```
 
-### 2. Run the FastAPI Backend Server (`backend/`)
-Serves REST endpoints for dataset analytics, model comparison, ROC/PR curves, confusion matrices, and live purchase probability inference:
-```bash
-uvicorn backend.app.main:app --host 127.0.0.1 --port 8000 --reload
-```
-- **Interactive Swagger UI**: `http://127.0.0.1:8000/docs`
-- **Run Backend Automated Tests**:
+Activate the virtual environment and install dependencies:
+
+- **Windows (PowerShell)**:
+  ```powershell
+  .\.venv\Scripts\Activate.ps1
+  pip install -r requirements.txt
+  ```
+- **Windows (Command Prompt)**:
+  ```cmd
+  .venv\Scripts\activate.bat
+  pip install -r requirements.txt
+  ```
+- **macOS / Linux**:
   ```bash
-  pytest backend/tests/test_backend.py -v
+  source .venv/bin/activate
+  pip install -r requirements.txt
   ```
 
-### 3. Run the Streamlit Shopper Segment Finder App (`deployment/`)
-Launches the interactive **PurchaseSense — K-Means Shopper Segment Finder** web application:
+---
+
+### 3. Option A — Run the Streamlit K-Means Shopper Segment Finder App (`deployment/`)
+Launches the interactive **PurchaseSense — Shopper Segment Finder** web interface where you can load preset visitor profiles (*Quick Exit*, *Casual Browser*, *Engaged Shopper*) or input custom session metrics to see real-time K-Means cluster assignments and marketing recommendations:
+
 ```bash
-pip install streamlit
-streamlit run deployment/app.py
+python -m streamlit run deployment/app.py
+```
+- **Local App URL**: `http://localhost:8501`
+
+---
+
+### 4. Option B — Run the FastAPI Purchase Prediction & Evaluation Server (`backend/`)
+Starts the REST API server providing dataset summaries, 5-fold cross-validation metrics, ROC/PR curves, confusion matrices, permutation feature importances, and real-time purchase probability inference (`predict_proba()`):
+
+```bash
+python -m uvicorn backend.app.main:app --host 127.0.0.1 --port 8000 --reload
+```
+- **API Base URL**: `http://127.0.0.1:8000`
+- **Interactive Swagger UI (Try Endpoints Live)**: `http://127.0.0.1:8000/docs`
+- **ReDoc Documentation**: `http://127.0.0.1:8000/redoc`
+
+#### Available REST API Endpoints
+| Method | Endpoint | Description |
+| :--- | :--- | :--- |
+| `GET` | `/api/health` | Operational health and loaded model readiness check |
+| `GET` | `/api/dataset/summary` | Dataset metadata, total rows (12,330), train/test split counts |
+| `GET` | `/api/dataset/distribution` | Numerical 5-number summaries & categorical value counts |
+| `GET` | `/api/dataset/rows` | Paginated, filterable dataset records |
+| `GET` | `/api/models/results` | Full test evaluation metrics & 5-fold cross-validation scores |
+| `GET` | `/api/models/comparison` | Side-by-side metric comparison table |
+| `GET` | `/api/evaluation/confusion-matrix` | Test set confusion matrices and classification reports |
+| `GET` | `/api/evaluation/roc` | ROC curve coordinates (`fpr`, `tpr`) & AUC values |
+| `GET` | `/api/evaluation/precision-recall` | Precision-Recall curve coordinates |
+| `GET` | `/api/features/importance` | Permutation feature importance & Gini importance scores |
+| `POST` | `/api/predict` | Real-time single-session purchase intention & probability prediction |
+| `POST` | `/api/retrain` | Triggers full pipeline retraining & 5-fold Stratified GridSearchCV |
+
+#### Example Prediction Request (`POST /api/predict`)
+```bash
+curl -X POST "http://127.0.0.1:8000/api/predict" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "SVM",
+    "features": {
+      "Administrative": 3,
+      "Administrative_Duration": 85.0,
+      "Informational": 1,
+      "Informational_Duration": 20.0,
+      "ProductRelated": 35,
+      "ProductRelated_Duration": 1450.0,
+      "BounceRates": 0.005,
+      "ExitRates": 0.018,
+      "PageValues": 28.5,
+      "SpecialDay": 0.0,
+      "Month": "Nov",
+      "OperatingSystems": 2,
+      "Browser": 2,
+      "Region": 1,
+      "TrafficType": 2,
+      "VisitorType": "Returning_Visitor",
+      "Weekend": false
+    }
+  }'
 ```
 
-### 4. Explore the Jupyter Notebooks
-- **Consolidated Project Notebooks**: Open [`notebooks/01_data_understanding.ipynb`](./notebooks/01_data_understanding.ipynb) through [`notebooks/04_model_evaluation.ipynb`](./notebooks/04_model_evaluation.ipynb) or [`google_colab_notebook.ipynb`](./google_colab_notebook.ipynb).
-- **Individual Member Notebooks**: Browse [`individual_models/`](./individual_models/) to inspect each student's standalone experiments and tuning logs.
+---
+
+### 5. Option C — Explore & Run the Jupyter Notebooks
+1. **Consolidated End-to-End Walkthrough Notebooks**:
+   - [`notebooks/01_data_understanding.ipynb`](./notebooks/01_data_understanding.ipynb) — Schema audit, missing values, and class imbalance analysis
+   - [`notebooks/02_eda.ipynb`](./notebooks/02_eda.ipynb) — Univariate/bivariate distributions and correlation analysis
+   - [`notebooks/03_model_training.ipynb`](./notebooks/03_model_training.ipynb) — Preprocessing pipelines and 5-fold Stratified GridSearchCV
+   - [`notebooks/04_model_evaluation.ipynb`](./notebooks/04_model_evaluation.ipynb) — Held-out test evaluation, ROC/PR curves, and feature importance
+   - [`google_colab_notebook.ipynb`](./google_colab_notebook.ipynb) — Self-contained notebook ready to upload directly to **Google Colab** (automatically downloads the UCI dataset if not present)
+2. **Individual Team Member Model Notebooks**:
+   - **Logistic Regression (`IT25100737`)**: [`individual_models/IT25100737_Logistic_Regression/logistic_regression.ipynb`](./individual_models/IT25100737_Logistic_Regression/logistic_regression.ipynb)
+   - **Random Forest (`IT25100153`)**: [`individual_models/IT25100153_Random_Forest/notebooks/IT25100153_Random_Forest.ipynb`](./individual_models/IT25100153_Random_Forest/notebooks/IT25100153_Random_Forest.ipynb)
+   - **Decision Tree (`IT25102733`)**: [`individual_models/IT25102733_Decision_Tree/decision_tree_online_shoppers.ipynb`](./individual_models/IT25102733_Decision_Tree/decision_tree_online_shoppers.ipynb)
+   - **K-Means Clustering (`IT25102287`)**: [`individual_models/IT25102287_KMeans_Clustering/kmeans_model_notebook.ipynb`](./individual_models/IT25102287_KMeans_Clustering/kmeans_model_notebook.ipynb)
+
+---
+
+### 6. Run Automated Unit & Integration Tests
+Verify dataset loading, preprocessing, model unpickling, metrics integrity, and prediction endpoints via `pytest`:
+
+```bash
+python -m pytest backend/tests/test_backend.py -v
+```
 
 ---
 
