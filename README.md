@@ -1,6 +1,6 @@
 # Online Shopping Purchase Intention Prediction Using Machine Learning
 
-> **Module**: IT2011 — Artificial Intelligence and Machine Learning (Year 2 Semester 1 Group Assignment)  
+> **Module**: IT2011 — Artificial Intelligence and Machine Learning (Year 2 Semester 1 Group Assignment @SLIIT)  
 > **Dataset**: UCI Online Shoppers Purchasing Intention Dataset (`online_shoppers_intention.csv`, 12,330 rows, 18 columns)  
 > **Target Variable**: `Revenue` (`False` = 10,422 sessions / 84.53%, `True` = 1,908 sessions / 15.47%)
 
