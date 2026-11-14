@@ -11,11 +11,11 @@ In modern e-commerce platforms, predicting whether a browsing session will conve
 
 This repository consolidates our group's end-to-end Machine Learning investigation across **five complementary algorithms** (four supervised classifiers and one unsupervised clustering pipeline), all evaluated under a leak-free **80/20 stratified train-test split** (`random_state=42`) with **5-Fold Stratified Cross-Validation** on the training partition:
 
-1. **Logistic Regression (`IT25100737`)** — Interpretable linear classification baseline with L1 regularization and in-fold SMOTE.
-2. **Random Forest Classifier (`IT25100153`)** — Bagged decision tree ensemble achieving the highest overall ROC-AUC (`0.9320`) and PR-AUC (`0.7398`).
-3. **Support Vector Machine (`IT25101477`)** — Non-linear RBF margin classifier integrated with a production FastAPI inference and evaluation server.
-4. **Decision Tree Classifier (`IT25102733` — Fernando W M M P D)** — Transparent, rule-based classifier achieving the highest purchase recall (`0.8120`–`0.8194`).
-5. **K-Means Clustering + PCA (`IT25102287` — Eragoda W M S P)** — Unsupervised behavioral visitor segmentation discovering 3 distinct shopper personas, deployed via an interactive Streamlit web app.
+1. **Logistic Regression** — Interpretable linear classification baseline with L1 regularization and in-fold SMOTE.
+2. **Random Forest Classifier** — Bagged decision tree ensemble achieving the highest overall ROC-AUC (`0.9320`) and PR-AUC (`0.7398`).
+3. **Support Vector Machine (SVM)** — Non-linear RBF margin classifier integrated with a production FastAPI inference and evaluation server.
+4. **Decision Tree Classifier** — Transparent, rule-based classifier achieving the highest purchase recall (`0.8120`–`0.8194`).
+5. **K-Means Clustering + PCA** — Unsupervised behavioral visitor segmentation discovering 3 distinct shopper personas, deployed via an interactive Streamlit web app.
 
 ---
 
@@ -23,13 +23,13 @@ This repository consolidates our group's end-to-end Machine Learning investigati
 
 To keep the repository organized for examiners and viewers, **all final deliverables and consolidated reports are located right here on the `main` branch**, while each team member's individual model artifacts are organized both in [`individual_models/`](./individual_models/) on `main` and in their dedicated Git branch:
 
-| Student ID | Team Member | Assigned Model | Paradigm | Folder on `main` | Dedicated Branch |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| **IT25100737** | Group Member (`IT25100737`) | **Logistic Regression** | Supervised (Linear Baseline) | [`individual_models/IT25100737_Logistic_Regression/`](./individual_models/IT25100737_Logistic_Regression/) | `IT25100737-Logistic-Regression` |
-| **IT25100153** | Group Member (`IT25100153`) | **Random Forest** | Supervised (Ensemble) | [`individual_models/IT25100153_Random_Forest/`](./individual_models/IT25100153_Random_Forest/) | `IT25100153-Random-Forest` |
-| **IT25101477** | Group Member (`IT25101477`) | **Support Vector Machine (SVM)** | Supervised (Kernel Margin) | [`individual_models/IT25101477_SVM/`](./individual_models/IT25101477_SVM/) | `IT25101477-SVM` |
-| **IT25102733** | **Fernando W M M P D** | **Decision Tree** | Supervised (Rule-Based Tree) | [`individual_models/IT25102733_Decision_Tree/`](./individual_models/IT25102733_Decision_Tree/) | `IT25102733-Fernando-WMMPD` |
-| **IT25102287** | **Eragoda W M S P** | **K-Means Clustering (+PCA)** | Unsupervised (Segmentation) | [`individual_models/IT25102287_KMeans_Clustering/`](./individual_models/IT25102287_KMeans_Clustering/) | `IT25102287_Eragoda-WMSP` |
+| ID & Name | Assigned Model | Paradigm | Folder on `main` | Dedicated Branch |
+| :--- | :--- | :--- | :--- | :--- |
+| **IT25100737** | **Logistic Regression** | Supervised (Linear Baseline) | [`individual_models/IT25100737_Logistic_Regression/`](./individual_models/IT25100737_Logistic_Regression/) | `IT25100737-Logistic-Regression` |
+| **IT25100153** | **Random Forest** | Supervised (Ensemble) | [`individual_models/IT25100153_Random_Forest/`](./individual_models/IT25100153_Random_Forest/) | `IT25100153-Random-Forest` |
+| **IT25101477** | **Support Vector Machine (SVM)** | Supervised (Kernel Margin) | [`individual_models/IT25101477_SVM/`](./individual_models/IT25101477_SVM/) | `IT25101477-SVM` |
+| **IT25102733 — Fernando W M M P D** | **Decision Tree** | Supervised (Rule-Based Tree) | [`individual_models/IT25102733_Decision_Tree/`](./individual_models/IT25102733_Decision_Tree/) | `IT25102733-Fernando-WMMPD` |
+| **IT25102287 — Eragoda W M S P** | **K-Means Clustering (+PCA)** | Unsupervised (Segmentation) | [`individual_models/IT25102287_KMeans_Clustering/`](./individual_models/IT25102287_KMeans_Clustering/) | `IT25102287_Eragoda-WMSP` |
 
 ---
 
@@ -91,26 +91,26 @@ Online-Shopping-Purchase-Intention-Prediction/
 
 ### 1. Supervised Classification Models (Evaluated on Held-Out Test Set, $N = 2,466$)
 
-| Model & Student ID | Optimal Configuration | 5-Fold CV F1 | Test Accuracy | Test Precision | Test Recall | Test F1-Score | Test ROC-AUC | Test PR-AUC |
+| Model | Optimal Configuration | 5-Fold CV F1 | Test Accuracy | Test Precision | Test Recall | Test F1-Score | Test ROC-AUC | Test PR-AUC |
 | :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Random Forest** (`IT25100153`) | `n_estimators=100, max_depth=12, min_samples_leaf=5, max_features=0.5, class_weight='balanced'` | **0.6837** | **0.8849** | 0.6068 | 0.7513 | 0.6713 | **0.9320** | **0.7398** |
-| **Logistic Regression** (`IT25100737`) | `C=0.01, penalty='l1', solver='saga', SMOTE-in-CV` *(V7 tuned threshold = 0.57; V5 default CV F1 = 0.6698)* | 0.6739 | — | **0.6113** | 0.7618 | **0.6783** | 0.9205 | 0.6783 |
-| **Decision Tree** (`IT25102733`) | `max_depth=3, criterion='entropy', class_weight='balanced'` *(Individual Notebook)* | ~0.6600 | 0.8750 | 0.5710 | **0.8120** | 0.6700 | 0.9080 | — |
-| **Support Vector Machine** (`IT25101477`) | `kernel='rbf', C=100.0, gamma=0.001, class_weight='balanced'` | 0.6655 | 0.8747 | 0.5759 | 0.7251 | 0.6419 | 0.8997 | — |
+| **Random Forest** | `n_estimators=100, max_depth=12, min_samples_leaf=5, max_features=0.5, class_weight='balanced'` | **0.6837** | **0.8849** | 0.6068 | 0.7513 | 0.6713 | **0.9320** | **0.7398** |
+| **Logistic Regression** | `C=0.01, penalty='l1', solver='saga', SMOTE-in-CV` *(V7 tuned threshold = 0.57; V5 default CV F1 = 0.6698)* | 0.6739 | — | **0.6113** | 0.7618 | **0.6783** | 0.9205 | 0.6783 |
+| **Decision Tree** | `max_depth=3, criterion='entropy', class_weight='balanced'` *(Individual Notebook)* | ~0.6600 | 0.8750 | 0.5710 | **0.8120** | 0.6700 | 0.9080 | — |
+| **Support Vector Machine** | `kernel='rbf', C=100.0, gamma=0.001, class_weight='balanced'` | 0.6655 | 0.8747 | 0.5759 | 0.7251 | 0.6419 | 0.8997 | — |
 | **Decision Tree (Depth-7 Baseline)** | `max_depth=7, criterion='gini', class_weight='balanced'` *(Backend Comparison Pipeline)* | 0.6344 | 0.8500 | 0.5098 | **0.8194** | 0.6285 | 0.8928 | — |
 
 **Key Takeaways Across Supervised Models**:
-- **Best Overall Ranking & Probability Calibration**: **Random Forest (`IT25100153`)** achieves the highest **ROC-AUC (`0.9320`)**, **PR-AUC (`0.7398`)**, **Accuracy (`88.49%`)**, and **5-Fold CV F1 (`0.6837`)**.
-- **Best Threshold-Tuned F1 & Precision**: **Logistic Regression (`IT25100737`)** with L1 sparsity, in-fold SMOTE, and probability threshold tuning (`0.57`) reaches **Test F1 = `0.6783`** and **Precision = `0.6113`**.
-- **Best Buyer Sensitivity (Recall)**: **Decision Tree (`IT25102733`)** captures **81.2%–81.9% of all true buyers**, making it ideal when missing a potential customer is much costlier than showing a promotional banner.
-- **Strong Non-Linear Margin Generalization**: **SVM (`IT25101477`)** achieves **87.47% accuracy** and **0.8997 ROC-AUC**, outperforming deeper unpruned trees on precision (`57.59%`).
+- **Best Overall Ranking & Probability Calibration**: **Random Forest** achieves the highest **ROC-AUC (`0.9320`)**, **PR-AUC (`0.7398`)**, **Accuracy (`88.49%`)**, and **5-Fold CV F1 (`0.6837`)**.
+- **Best Threshold-Tuned F1 & Precision**: **Logistic Regression** with L1 sparsity, in-fold SMOTE, and probability threshold tuning (`0.57`) reaches **Test F1 = `0.6783`** and **Precision = `0.6113`**.
+- **Best Buyer Sensitivity (Recall)**: **Decision Tree** captures **81.2%–81.9% of all true buyers**, making it ideal when missing a potential customer is much costlier than showing a promotional banner.
+- **Strong Non-Linear Margin Generalization**: **SVM** achieves **87.47% accuracy** and **0.8997 ROC-AUC**, outperforming deeper unpruned trees on precision (`57.59%`).
 - **Dominant Predictor**: Across all supervised models (Gini importance, Permutation importance, and L1 coefficients), **`PageValues`** is the strongest predictor of purchase intention, followed by seasonal indicator **`Month` (November)**, **`ProductRelated_Duration`**, and **`ExitRates` / `BounceRates`**.
 
 ---
 
-### 2. Unsupervised Behavioral Segmentation — K-Means + PCA (`IT25102287`)
+### 2. Unsupervised Behavioral Segmentation — K-Means + PCA
 
-To segment visitors *before* checkout or page-value accumulation, **K-Means (`IT25102287`)** was trained across 13 preprocessing varieties. The optimal model (**V09: Behavioral features without `PageValues`, log-transformed + `StandardScaler`, $k=3$, `k-means++`**) achieved:
+To segment visitors *before* checkout or page-value accumulation, **K-Means** was trained across 13 preprocessing varieties. The optimal model (**V09: Behavioral features without `PageValues`, log-transformed + `StandardScaler`, $k=3$, `k-means++`**) achieved:
 - **5-Fold CV Silhouette Score**: `0.400 ± 0.007`
 - **Test Silhouette Score**: `0.4090`
 - **Test Davies-Bouldin Index**: `1.0985`
